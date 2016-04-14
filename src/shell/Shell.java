@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * This is the core class of "Shell" application. Here we have all methods and operations on the our console.
+ *
  * @author Bartosz Siewniak
  */
 class Shell
@@ -13,13 +14,11 @@ class Shell
     private String defaultPrompt = "$";
     private boolean isRunning = true;
 
-    // TODO: 4/13/16 : replace throws with try/catch
-
     /**
      * Method holding main loop in our application, it runs since we change boolean on false.
-     * @throws IOException
+     *
      */
-    void run() throws IOException
+    void run()
     {
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -53,9 +52,9 @@ class Shell
 
     /**
      * This method is responsible for take actions (change or reset atm) while user type 'prompt' in shell.
-     * @param userInput
-     *        it takes our string array, which we previously created from taking input from user
-     *        and split it by spaces
+     *
+     * @param userInput it takes our string array, which we previously created from taking input from user
+     *                  and split it by spaces
      */
     private void prompt(String[] userInput)
     {
@@ -74,7 +73,7 @@ class Shell
                 }
                 else
                 {
-                   defaultPrompt = "$";
+                    defaultPrompt = "$";
                 }
             }
             else
@@ -92,29 +91,36 @@ class Shell
         }
     }
 
-    // TODO: 4/13/16 : replace throws with try/catch, unfinished method
-
     /**
      * Method responsible for showing up all files and directories in our current working folder
-     * @throws IOException
+     *
      */
-    private void showFilesAndDirectories() throws IOException
+    private void showFilesAndDirectories()
     {
         File file = new File(".");
         File[] files = file.listFiles();
 
-        assert files != null;
-        for (File element: files)
+        try
         {
-            if (element.isDirectory())
+            if (files != null)
             {
-                System.out.println("directory:");
+                for (File element : files)
+                {
+                    if (element.isDirectory())
+                    {
+                        System.out.print(FileStructure.DIR + "     ");
+                    }
+                    else
+                    {
+                        System.out.print(FileStructure.FILE + "    ");
+                    }
+                    System.out.println(element.getCanonicalFile());
+                }
             }
-            else
-            {
-                System.out.println("    file:");
-            }
-            System.out.println(element.getCanonicalFile());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }
