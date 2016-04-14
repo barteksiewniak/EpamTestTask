@@ -16,7 +16,6 @@ class Shell
 
     /**
      * Method holding main loop in our application, it runs since we change boolean on false.
-     *
      */
     void run()
     {
@@ -46,6 +45,12 @@ class Shell
             if (userInput.equals("dir"))
             {
                 showFilesAndDirectories();
+            }
+
+            if (userInput.equals("list"))
+            {
+                final int DIRECTORIES_INITIAL_DEPTH = 0;
+                showAllDirectoriesAndSubdirectories(".", DIRECTORIES_INITIAL_DEPTH);
             }
         }
     }
@@ -93,7 +98,6 @@ class Shell
 
     /**
      * Method responsible for showing up all files and directories in our current working folder
-     *
      */
     private void showFilesAndDirectories()
     {
@@ -121,6 +125,42 @@ class Shell
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    // TODO: 4/14/16 change the displaying number of subdirectories depth from integers to "-"
+    /**
+     * Method responsible for showing directories and subdirectories in current folder
+     * @param directoryName
+     *        It's the path to the current folder
+     * @param depth
+     *        It's parameter which are responsible for counting our depth of subdirectories, initial number is 0
+     */
+    private void showAllDirectoriesAndSubdirectories(String directoryName, int depth)
+    {
+        File directory = new File(directoryName);
+        File[] fList = directory.listFiles();
+
+        if (fList != null)
+        {
+            try
+            {
+                for (File file : fList)
+                {
+                    if (file.isDirectory())
+                    {
+                        System.out.println(depth + " " + file.getName());
+                    }
+                    if (file.isDirectory())
+                    {
+                        showAllDirectoriesAndSubdirectories(file.getCanonicalPath(), depth + 1);
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }
