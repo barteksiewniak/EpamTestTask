@@ -49,8 +49,7 @@ class Shell
 
             if (userInput.equals("list"))
             {
-                final int DIRECTORIES_INITIAL_DEPTH = 0;
-                showAllDirectoriesAndSubdirectories(".", DIRECTORIES_INITIAL_DEPTH);
+                showAllDirectoriesAndSubdirectories(".", 0);
             }
         }
     }
@@ -128,18 +127,22 @@ class Shell
         }
     }
 
-    // TODO: 4/14/16 change the displaying number of subdirectories depth from integers to "-"
     /**
      * Method responsible for showing directories and subdirectories in current folder
-     * @param directoryName
-     *        It's the path to the current folder
-     * @param depth
-     *        It's parameter which are responsible for counting our depth of subdirectories, initial number is 0
+     *
+     * @param directoryName It's the path to the current folder
+     * @param depth         It's parameter which are responsible for counting our depth of subdirectories, initial number is 0
      */
     private void showAllDirectoriesAndSubdirectories(String directoryName, int depth)
     {
         File directory = new File(directoryName);
         File[] fList = directory.listFiles();
+        StringBuilder levelOfDepth = new StringBuilder("");
+
+        for (int i = 0; i <= depth; i++)
+        {
+            levelOfDepth.append("-");
+        }
 
         if (fList != null)
         {
@@ -149,7 +152,7 @@ class Shell
                 {
                     if (file.isDirectory())
                     {
-                        System.out.println(depth + " " + file.getName());
+                        System.out.println(levelOfDepth + " " + file.getName());
                     }
                     if (file.isDirectory())
                     {
