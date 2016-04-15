@@ -13,6 +13,7 @@ class Shell
 {
     private String defaultPrompt = "$";
     private boolean isRunning = true;
+    private String directory = "";
 
     /**
      * Method holding main loop in our application, it runs since we change boolean on false.
@@ -34,23 +35,25 @@ class Shell
             {
                 prompt(arr);
             }
-
             if (userInput.equals("exit"))
             {
                 System.out.println("Have a nice day!");
                 isRunning = false;
                 scanner.close();
             }
-
             if (userInput.equals("dir"))
             {
                 showFilesAndDirectories();
             }
-
-            if (userInput.equals("list"))
+            if (userInput.equals("tree"))
             {
                 showAllDirectoriesAndSubdirectories(".", 0);
             }
+            if (userInput.equals("cd.."))
+            {
+                changeDirectory();
+            }
+
         }
     }
 
@@ -95,6 +98,7 @@ class Shell
         }
     }
 
+    // TODO: 4/15/16 add properly display "Content of..." 
     /**
      * Method responsible for showing up all files and directories in our current working folder
      */
@@ -127,6 +131,8 @@ class Shell
         }
     }
 
+    // TODO: 4/15/16 consider how to sort
+
     /**
      * Method responsible for showing directories and subdirectories in current folder
      *
@@ -152,10 +158,41 @@ class Shell
                 {
                     if (file.isDirectory())
                     {
-                        System.out.println(levelOfDepth + " " + file.getName());
+                        System.out.println(levelOfDepth + file.getName());
                         showAllDirectoriesAndSubdirectories(file.getCanonicalPath(), depth + 1);
                     }
                 }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // TODO: 4/15/16 comment method, try to remove repeating lines of code 
+    private void changeDirectory()
+    {
+        if (directory.equals(""))
+        {
+            File file = new File(".");
+            try
+            {
+                directory = (file.getCanonicalFile().getParent());
+                System.out.println(directory);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            File file = new File(directory);
+            try
+            {
+                directory = (file.getCanonicalFile().getParent());
+                System.out.println(directory);
             }
             catch (IOException e)
             {
