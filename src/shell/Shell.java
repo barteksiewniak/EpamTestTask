@@ -153,9 +153,6 @@ class Shell
                     if (file.isDirectory())
                     {
                         System.out.println(levelOfDepth + " " + file.getName());
-                    }
-                    if (file.isDirectory())
-                    {
                         showAllDirectoriesAndSubdirectories(file.getCanonicalPath(), depth + 1);
                     }
                 }
