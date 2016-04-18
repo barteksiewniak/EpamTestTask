@@ -2,6 +2,7 @@ package shell;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -139,8 +140,6 @@ class Shell
         }
     }
 
-    // TODO: 4/15/16 consider how to sort
-
     /**
      * Method responsible for showing directories and subdirectories in current folder
      *
@@ -153,15 +152,15 @@ class Shell
         File[] filesAndDirectoriesHolder = directory.listFiles();
         StringBuilder levelOfDepth = new StringBuilder("");
 
-        for (int i = 0; i <= depth; i++)
+        try
         {
-            levelOfDepth.append("-");
-        }
-
-        if (filesAndDirectoriesHolder != null)
-        {
-            try
+            if (filesAndDirectoriesHolder != null)
             {
+                for (int i = 0; i <= depth; i++)
+                {
+                    levelOfDepth.append("-");
+                }
+                Arrays.sort(filesAndDirectoriesHolder);
                 for (File element : filesAndDirectoriesHolder)
                 {
                     if (element.isDirectory())
@@ -171,10 +170,10 @@ class Shell
                     }
                 }
             }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
