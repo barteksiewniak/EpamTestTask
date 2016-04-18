@@ -11,35 +11,36 @@ import java.util.Scanner;
  */
 class Shell
 {
-    private String defaultPrompt = "$";
+    private String defaultPromptProperty = "$";
     private boolean isRunning = true;
     private String directory = "";
+    private final String CURRENT_DIRECTORY = System.getProperty("user.dir");
 
     /**
      * Method holding main loop in our application, it runs since we change boolean on false.
      */
     void run()
     {
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         String userInput;
 
         while (isRunning)
         {
             final String MY_SHELL = "[My Shell]";
-            System.out.print(MY_SHELL + " " + defaultPrompt + ">");
-            userInput = scanner.nextLine();
+            System.out.print(MY_SHELL + " " + defaultPromptProperty + ">");
+            userInput = input.nextLine();
 
-            String[] arr = userInput.split(" ");
+            String[] userInputHolder = userInput.split(" ");
 
-            if (arr[0].equals("prompt"))
+            if (userInputHolder[0].equals("prompt"))
             {
-                prompt(arr);
+                prompt(userInputHolder);
             }
             if (userInput.equals("exit"))
             {
                 System.out.println("Have a nice day!");
                 isRunning = false;
-                scanner.close();
+                input.close();
             }
             if (userInput.equals("dir"))
             {
@@ -47,7 +48,7 @@ class Shell
             }
             if (userInput.equals("tree"))
             {
-                showAllDirectoriesAndSubdirectories(".", 0);
+                showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
             }
             if (userInput.equals("cd.."))
             {
@@ -67,25 +68,24 @@ class Shell
     {
         try
         {
-            // TODO: 4/13/16 : consider to change if/else on switch statement
-            if (userInput[1].equals("$cwd"))
+            switch (userInput[1])
             {
-                defaultPrompt = System.getProperty("user.dir");
-            }
-            else if (userInput[1].equals("reset"))
-            {
-                if (defaultPrompt.equals("$"))
-                {
-                    System.out.println("Default prompt is actually in use.");
-                }
-                else
-                {
-                    defaultPrompt = "$";
-                }
-            }
-            else
-            {
-                defaultPrompt = userInput[1];
+                case "$cwd":
+                    defaultPromptProperty = CURRENT_DIRECTORY;
+                    break;
+                case "reset":
+                    if (defaultPromptProperty.equals("$"))
+                    {
+                        System.out.println("Default prompt is actually in use.");
+                    }
+                    else
+                    {
+                        defaultPromptProperty = "$";
+                    }
+                    break;
+                default:
+                    defaultPromptProperty = userInput[1];
+                    break;
             }
 
         }
@@ -98,20 +98,28 @@ class Shell
         }
     }
 
-    // TODO: 4/15/16 add properly display "Content of..." 
     /**
      * Method responsible for showing up all files and directories in our current working folder
      */
     private void showFilesAndDirectories()
     {
-        File file = new File(".");
-        File[] files = file.listFiles();
+        File currentDirectory = new File(CURRENT_DIRECTORY);
+        File[] filesAndDirectoriesHolder = currentDirectory.listFiles();
 
         try
         {
-            if (files != null)
+            System.out.println("Content of " + currentDirectory.getCanonicalFile());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            if (filesAndDirectoriesHolder != null)
             {
-                for (File element : files)
+                for (File element : filesAndDirectoriesHolder)
                 {
                     if (element.isDirectory())
                     {
@@ -142,7 +150,7 @@ class Shell
     private void showAllDirectoriesAndSubdirectories(String directoryName, int depth)
     {
         File directory = new File(directoryName);
-        File[] fList = directory.listFiles();
+        File[] filesAndDirectoriesHolder = directory.listFiles();
         StringBuilder levelOfDepth = new StringBuilder("");
 
         for (int i = 0; i <= depth; i++)
@@ -150,16 +158,16 @@ class Shell
             levelOfDepth.append("-");
         }
 
-        if (fList != null)
+        if (filesAndDirectoriesHolder != null)
         {
             try
             {
-                for (File file : fList)
+                for (File element : filesAndDirectoriesHolder)
                 {
-                    if (file.isDirectory())
+                    if (element.isDirectory())
                     {
-                        System.out.println(levelOfDepth + file.getName());
-                        showAllDirectoriesAndSubdirectories(file.getCanonicalPath(), depth + 1);
+                        System.out.println(levelOfDepth + element.getName());
+                        showAllDirectoriesAndSubdirectories(element.getCanonicalPath(), depth + 1);
                     }
                 }
             }
@@ -170,34 +178,31 @@ class Shell
         }
     }
 
-    // TODO: 4/15/16 comment method, try to remove repeating lines of code 
+    /**
+     * Method responsible for change directory ( 1 level of depth up - we switching to parent )
+     */
     private void changeDirectory()
     {
+        String temporaryDirectory;
+
         if (directory.equals(""))
         {
-            File file = new File(".");
-            try
-            {
-                directory = (file.getCanonicalFile().getParent());
-                System.out.println(directory);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            temporaryDirectory = CURRENT_DIRECTORY;
         }
         else
         {
-            File file = new File(directory);
-            try
-            {
-                directory = (file.getCanonicalFile().getParent());
-                System.out.println(directory);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            temporaryDirectory = directory;
+        }
+
+        File file = new File(temporaryDirectory);
+        try
+        {
+            directory = (file.getCanonicalFile().getParent());
+            System.out.println(directory);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }
