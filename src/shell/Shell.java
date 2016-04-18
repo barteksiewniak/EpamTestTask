@@ -37,25 +37,27 @@ class Shell
             {
                 prompt(userInputHolder);
             }
-            if (userInput.equals("exit"))
-            {
-                System.out.println("Have a nice day!");
-                isRunning = false;
-                input.close();
-            }
-            if (userInput.equals("dir"))
-            {
-                showFilesAndDirectories();
-            }
-            if (userInput.equals("tree"))
-            {
-                showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
-            }
-            if (userInput.equals("cd.."))
-            {
-                changeDirectory();
-            }
 
+            switch (userInput)
+            {
+                case "exit":
+                    System.out.println("Have a nice day!");
+                    isRunning = false;
+                    input.close();
+                    break;
+                case "dir":
+                    showFilesAndDirectories();
+                    break;
+                case "tree":
+                    showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
+                    break;
+                case "cd..":
+                    changeDirectory();
+                    break;
+                default:
+                    System.out.println("Wrong command.");
+                    break;
+            }
         }
     }
 
@@ -88,7 +90,6 @@ class Shell
                     defaultPromptProperty = userInput[1];
                     break;
             }
-
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
