@@ -37,26 +37,35 @@ class Shell
             {
                 prompt(userInputHolder);
             }
-
-            switch (userInput)
+            else
             {
-                case "exit":
-                    System.out.println("Have a nice day!");
-                    isRunning = false;
-                    input.close();
-                    break;
-                case "dir":
-                    showFilesAndDirectories();
-                    break;
-                case "tree":
-                    showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
-                    break;
-                case "cd..":
-                    changeDirectory();
-                    break;
-                default:
-                    System.out.println("Wrong command.");
-                    break;
+                switch (userInput)
+                {
+                    case "exit":
+                        System.out.println("Have a nice day!");
+                        isRunning = false;
+                        input.close();
+                        break;
+                    case "dir":
+                        showFilesAndDirectories();
+                        break;
+                    case "tree":
+                        if (directory.equals(""))
+                        {
+                            showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
+                        }
+                        else
+                        {
+                            showAllDirectoriesAndSubdirectories(directory, 0);
+                        }
+                        break;
+                    case "cd..":
+                        changeDirectory();
+                        break;
+                    default:
+                        System.out.println("Wrong command.");
+                        break;
+                }
             }
         }
     }
@@ -105,8 +114,19 @@ class Shell
      */
     private void showFilesAndDirectories()
     {
-        File currentDirectory = new File(CURRENT_DIRECTORY);
-        File[] filesAndDirectoriesHolder = currentDirectory.listFiles();
+        String directoryPlaceholder;
+
+        if (directory.equals(""))
+        {
+            directoryPlaceholder = CURRENT_DIRECTORY;
+        }
+        else
+        {
+            directoryPlaceholder = directory;
+        }
+
+        File currentDirectory = new File(directoryPlaceholder);
+        File[] listOfFilesAndFolders = currentDirectory.listFiles();
 
         try
         {
@@ -119,9 +139,9 @@ class Shell
 
         try
         {
-            if (filesAndDirectoriesHolder != null)
+            if (listOfFilesAndFolders != null)
             {
-                for (File element : filesAndDirectoriesHolder)
+                for (File element : listOfFilesAndFolders)
                 {
                     if (element.isDirectory())
                     {
@@ -198,7 +218,7 @@ class Shell
         try
         {
             directory = (file.getCanonicalFile().getParent());
-            System.out.println(directory);
+            defaultPromptProperty = directory;
         }
         catch (IOException e)
         {
