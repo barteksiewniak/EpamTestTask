@@ -1,8 +1,5 @@
 package shell;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -10,12 +7,53 @@ import java.util.Scanner;
  *
  * @author Bartosz Siewniak
  */
-class Shell
+public class Shell
 {
-    private String defaultPromptProperty = "$";
-    private boolean isRunning = true;
-    private String directory = "";
-    private final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static String defaultPromptProperty = "$";
+    private static String directory = "";
+    private static final String HOME_DIRECTORY = System.getProperty("user.dir");
+    private static String userInput;
+    private static boolean isRunning = true;
+
+    public static String getDefaultPromptProperty()
+    {
+        return defaultPromptProperty;
+    }
+
+    public static void setDefaultPromptProperty(String defaultPromptProperty)
+    {
+        Shell.defaultPromptProperty = defaultPromptProperty;
+    }
+
+    public static boolean isRunning()
+    {
+        return isRunning;
+    }
+
+    static void setIsRunning(boolean isRunning)
+    {
+        Shell.isRunning = isRunning;
+    }
+
+    public static String getDirectory()
+    {
+        return directory;
+    }
+
+    public static void setDirectory(String directory)
+    {
+        Shell.directory = directory;
+    }
+
+    public static String getHomeDirectory()
+    {
+        return HOME_DIRECTORY;
+    }
+
+    static String getUserInput()
+    {
+        return userInput;
+    }
 
     /**
      * Method holding main loop in our application, it runs since we change boolean on false.
@@ -23,8 +61,6 @@ class Shell
     void run()
     {
         Scanner input = new Scanner(System.in);
-        String userInput;
-
         while (isRunning)
         {
             final String MY_SHELL = "[My Shell]";
@@ -39,36 +75,12 @@ class Shell
             }
             else
             {
-                switch (userInput)
-                {
-                    case "exit":
-                        System.out.println("Have a nice day!");
-                        isRunning = false;
-                        input.close();
-                        break;
-                    case "dir":
-                        showFilesAndDirectories();
-                        break;
-                    case "tree":
-                        if (directory.equals(""))
-                        {
-                            showAllDirectoriesAndSubdirectories(CURRENT_DIRECTORY, 0);
-                        }
-                        else
-                        {
-                            showAllDirectoriesAndSubdirectories(directory, 0);
-                        }
-                        break;
-                    case "cd..":
-                        changeDirectory();
-                        break;
-                    default:
-                        System.out.println("Wrong command.");
-                        break;
-                }
+                CommandFactory.init().executeCommand(userInput);
             }
         }
+        input.close();
     }
+
 
     /**
      * This method is responsible for take actions (change or reset atm) while user type 'prompt' in shell.
@@ -83,7 +95,7 @@ class Shell
             switch (userInput[1])
             {
                 case "$cwd":
-                    defaultPromptProperty = CURRENT_DIRECTORY;
+                    defaultPromptProperty = HOME_DIRECTORY;
                     break;
                 case "reset":
                     if (defaultPromptProperty.equals("$"))
@@ -106,123 +118,6 @@ class Shell
                     "prompt [name] - for change default\n " +
                     "prompt $cwd - for directory\n " +
                     "prompt reset - for default prompt name");
-        }
-    }
-
-    /**
-     * Method responsible for showing up all files and directories in our current working folder
-     */
-    private void showFilesAndDirectories()
-    {
-        String directoryPlaceholder;
-
-        if (directory.equals(""))
-        {
-            directoryPlaceholder = CURRENT_DIRECTORY;
-        }
-        else
-        {
-            directoryPlaceholder = directory;
-        }
-
-        File currentDirectory = new File(directoryPlaceholder);
-        File[] listOfFilesAndFolders = currentDirectory.listFiles();
-
-        try
-        {
-            System.out.println("Content of " + currentDirectory.getCanonicalFile());
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        {
-            if (listOfFilesAndFolders != null)
-            {
-                for (File element : listOfFilesAndFolders)
-                {
-                    if (element.isDirectory())
-                    {
-                        System.out.print(FileStructure.DIR + "     ");
-                    }
-                    else
-                    {
-                        System.out.print(FileStructure.FILE + "    ");
-                    }
-                    System.out.println(element.getCanonicalFile());
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Method responsible for showing directories and subdirectories in current folder
-     *
-     * @param directoryName It's the path to the current folder
-     * @param depth         It's parameter which are responsible for counting our depth of subdirectories, initial number is 0
-     */
-    private void showAllDirectoriesAndSubdirectories(String directoryName, int depth)
-    {
-        File directory = new File(directoryName);
-        File[] filesAndDirectoriesHolder = directory.listFiles();
-        StringBuilder levelOfDepth = new StringBuilder("");
-
-        try
-        {
-            if (filesAndDirectoriesHolder != null)
-            {
-                for (int i = 0; i <= depth; i++)
-                {
-                    levelOfDepth.append("-");
-                }
-                Arrays.sort(filesAndDirectoriesHolder);
-                for (File element : filesAndDirectoriesHolder)
-                {
-                    if (element.isDirectory())
-                    {
-                        System.out.println(levelOfDepth + element.getName());
-                        showAllDirectoriesAndSubdirectories(element.getCanonicalPath(), depth + 1);
-                    }
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Method responsible for change directory ( 1 level of depth up - we switching to parent )
-     */
-    private void changeDirectory()
-    {
-        String temporaryDirectory;
-
-        if (directory.equals(""))
-        {
-            temporaryDirectory = CURRENT_DIRECTORY;
-        }
-        else
-        {
-            temporaryDirectory = directory;
-        }
-
-        File file = new File(temporaryDirectory);
-        try
-        {
-            directory = (file.getCanonicalFile().getParent());
-            defaultPromptProperty = directory;
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
         }
     }
 }
