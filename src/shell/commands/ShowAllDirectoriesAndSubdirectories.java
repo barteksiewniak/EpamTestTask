@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class ShowAllDirectoriesAndSubdirectories implements Command
 {
+    @Override
     public void execute()
     {
         if (Shell.getDirectory().equals(""))

@@ -50,14 +50,7 @@ final class CommandFactory
         }
         else if (input.equals("tree"))
         {
-            if (Shell.getDirectory().equals(""))
-            {
-                cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories());
-            }
-            else
-            {
-                cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories());
-            }
+            cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories());
         }
         else
         {
