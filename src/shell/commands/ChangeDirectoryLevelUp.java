@@ -8,6 +8,12 @@ import java.io.IOException;
 
 public class ChangeDirectoryLevelUp implements Command
 {
+    private Shell shell;
+
+    public ChangeDirectoryLevelUp(Shell shell)
+    {
+        this.shell = shell;
+    }
     /**
      * Method responsible for change directory ( 1 level of depth up - we switching to parent )
      */
@@ -16,20 +22,20 @@ public class ChangeDirectoryLevelUp implements Command
     {
         String temporaryDirectory;
 
-        if (Shell.getDirectory().equals(""))
+        if (shell.getDirectory().equals(""))
         {
-            temporaryDirectory = Shell.getHomeDirectory();
+            temporaryDirectory = shell.getHomeDirectory();
         }
         else
         {
-            temporaryDirectory = Shell.getDirectory();
+            temporaryDirectory = shell.getDirectory();
         }
 
         File file = new File(temporaryDirectory);
         try
         {
-            Shell.setDirectory(file.getCanonicalFile().getParent());
-            Shell.setDefaultPromptProperty(Shell.getDirectory());
+            shell.setDirectory(file.getCanonicalFile().getParent());
+            shell.setDefaultPromptProperty(shell.getDirectory());
         }
         catch (IOException e)
         {

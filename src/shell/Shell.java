@@ -9,48 +9,38 @@ import java.util.Scanner;
  */
 public class Shell
 {
-    private static String defaultPromptProperty = "$";
-    private static String directory = "";
-    private static final String HOME_DIRECTORY = System.getProperty("user.dir");
-    private static String userInput;
-    private static boolean isRunning = true;
+    private String defaultPromptProperty = "$";
+    private String directory = "";
+    private final String HOME_DIRECTORY = System.getProperty("user.dir");
+    private String userInput;
+    private boolean isRunning = true;
 
-    public static String getDefaultPromptProperty()
+    public void setDefaultPromptProperty(String defaultPromptProperty)
     {
-        return defaultPromptProperty;
+        this.defaultPromptProperty = defaultPromptProperty;
     }
 
-    public static void setDefaultPromptProperty(String defaultPromptProperty)
+    public void setIsRunning(boolean isRunning)
     {
-        Shell.defaultPromptProperty = defaultPromptProperty;
+        this.isRunning = isRunning;
     }
 
-    public static boolean isRunning()
-    {
-        return isRunning;
-    }
-
-    static void setIsRunning(boolean isRunning)
-    {
-        Shell.isRunning = isRunning;
-    }
-
-    public static String getDirectory()
+    public String getDirectory()
     {
         return directory;
     }
 
-    public static void setDirectory(String directory)
+    public void setDirectory(String directory)
     {
-        Shell.directory = directory;
+        this.directory = directory;
     }
 
-    public static String getHomeDirectory()
+    public String getHomeDirectory()
     {
         return HOME_DIRECTORY;
     }
 
-    static String getUserInput()
+    String getUserInput()
     {
         return userInput;
     }
@@ -60,6 +50,7 @@ public class Shell
      */
     void run()
     {
+        CommandFactory cf = new CommandFactory(this);
         Scanner input = new Scanner(System.in);
         while (isRunning)
         {
@@ -75,7 +66,7 @@ public class Shell
             }
             else
             {
-                CommandFactory.init().executeCommand(userInput);
+                cf.init().executeCommand(userInput);
             }
         }
         input.close();

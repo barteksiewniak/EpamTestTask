@@ -10,6 +10,13 @@ import java.io.IOException;
 
 public class ShowFilesAndDirectories implements Command
 {
+    private Shell shell;
+
+    public ShowFilesAndDirectories(Shell shell)
+    {
+        this.shell = shell;
+    }
+
     /**
      * Method responsible for showing up all files and directories in our current working folder
      */
@@ -18,13 +25,13 @@ public class ShowFilesAndDirectories implements Command
     {
         String directoryPlaceholder;
 
-        if (Shell.getDirectory().equals(""))
+        if (shell.getDirectory().equals(""))
         {
-            directoryPlaceholder = Shell.getHomeDirectory();
+            directoryPlaceholder = shell.getHomeDirectory();
         }
         else
         {
-            directoryPlaceholder = Shell.getDirectory();
+            directoryPlaceholder = shell.getDirectory();
         }
 
         File currentDirectory = new File(directoryPlaceholder);

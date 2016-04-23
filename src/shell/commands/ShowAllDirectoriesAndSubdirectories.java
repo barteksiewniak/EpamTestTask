@@ -9,16 +9,23 @@ import java.util.Arrays;
 
 public class ShowAllDirectoriesAndSubdirectories implements Command
 {
+    private Shell shell;
+
+    public ShowAllDirectoriesAndSubdirectories(Shell shell)
+    {
+        this.shell = shell;
+    }
+
     @Override
     public void execute()
     {
-        if (Shell.getDirectory().equals(""))
+        if (shell.getDirectory().equals(""))
         {
-            showAllDirectoriesAndSubdirectories(Shell.getHomeDirectory(), 0);
+            showAllDirectoriesAndSubdirectories(shell.getHomeDirectory(), 0);
         }
         else
         {
-            showAllDirectoriesAndSubdirectories(Shell.getDirectory(), 0);
+            showAllDirectoriesAndSubdirectories(shell.getDirectory(), 0);
         }
     }
 

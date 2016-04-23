@@ -9,9 +9,11 @@ import java.util.HashMap;
 final class CommandFactory
 {
     private final HashMap<String, Command> commands;
+    private Shell shell;
 
-    private CommandFactory()
+    public CommandFactory(Shell shell)
     {
+        this.shell = shell;
         commands = new HashMap<>();
     }
 
@@ -29,28 +31,28 @@ final class CommandFactory
     }
 
     // factory pattern
-    static CommandFactory init()
+    CommandFactory init()
     {
-        CommandFactory cf = new CommandFactory();
+        CommandFactory cf = new CommandFactory(shell);
 
-        String input = Shell.getUserInput();
+        String input = shell.getUserInput();
 
         if (input.equals("dir"))
         {
-            cf.addCommand("dir", new ShowFilesAndDirectories());
+            cf.addCommand("dir", new ShowFilesAndDirectories(shell));
         }
         else if (input.equals("cd.."))
         {
-            cf.addCommand("cd..", new ChangeDirectoryLevelUp());
+            cf.addCommand("cd..", new ChangeDirectoryLevelUp(shell));
         }
         else if (input.equals("exit"))
         {
             System.out.println("Bye!");
-            Shell.setIsRunning(false);
+            shell.setIsRunning(false);
         }
         else if (input.equals("tree"))
         {
-            cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories());
+            cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
         }
         else
         {
