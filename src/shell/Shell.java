@@ -50,7 +50,7 @@ public class Shell
      */
     void run()
     {
-        CommandFactory cf = new CommandFactory(this);
+        CommandFactory commandFactory = new CommandFactory(this);
         Scanner input = new Scanner(System.in);
         while (isRunning)
         {
@@ -66,7 +66,8 @@ public class Shell
             }
             else
             {
-                cf.init().executeCommand(userInput);
+                commandFactory.init();
+                commandFactory.executeCommand(userInput);
             }
         }
         input.close();

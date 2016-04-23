@@ -31,33 +31,28 @@ final class CommandFactory
     }
 
     // factory pattern
-    CommandFactory init()
+    void init()
     {
-        CommandFactory cf = new CommandFactory(shell);
-
         String input = shell.getUserInput();
 
-        if (input.equals("dir"))
+        switch (input)
         {
-            cf.addCommand("dir", new ShowFilesAndDirectories(shell));
+            case "dir":
+                addCommand("dir", new ShowFilesAndDirectories(shell));
+                break;
+            case "cd..":
+                addCommand("cd..", new ChangeDirectoryLevelUp(shell));
+                break;
+            case "exit":
+                System.out.println("Bye!");
+                shell.setIsRunning(false);
+                break;
+            case "tree":
+                addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
+                break;
+            default:
+                System.out.println("Wrong command.");
+                break;
         }
-        else if (input.equals("cd.."))
-        {
-            cf.addCommand("cd..", new ChangeDirectoryLevelUp(shell));
-        }
-        else if (input.equals("exit"))
-        {
-            System.out.println("Bye!");
-            shell.setIsRunning(false);
-        }
-        else if (input.equals("tree"))
-        {
-            cf.addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
-        }
-        else
-        {
-            System.out.println("Wrong command.");
-        }
-        return cf;
     }
 }
