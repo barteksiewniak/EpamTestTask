@@ -18,7 +18,7 @@ public class ChangeDirectoryLevelUp implements Command
      * Method responsible for change directory ( 1 level of depth up - we switching to parent )
      */
     @Override
-    public void execute()
+    public void execute(Object param)
     {
         String temporaryDirectory;
 
@@ -35,7 +35,7 @@ public class ChangeDirectoryLevelUp implements Command
         try
         {
             shell.setDirectory(file.getCanonicalFile().getParent());
-            shell.setDefaultPromptProperty(shell.getDirectory());
+            shell.setPrompt(shell.getDirectory());
         }
         catch (IOException e)
         {

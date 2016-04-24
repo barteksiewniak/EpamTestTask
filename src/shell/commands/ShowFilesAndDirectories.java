@@ -21,7 +21,7 @@ public class ShowFilesAndDirectories implements Command
      * Method responsible for showing up all files and directories in our current working folder
      */
     @Override
-    public void execute()
+    public void execute(Object param)
     {
         String directoryPlaceholder;
 

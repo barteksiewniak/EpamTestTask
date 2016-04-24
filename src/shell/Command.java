@@ -3,5 +3,5 @@ package shell;
 @FunctionalInterface
 public interface Command
 {
-    void execute();
+    void execute(Object param);
 }

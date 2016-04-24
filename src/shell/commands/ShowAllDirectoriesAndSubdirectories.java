@@ -17,16 +17,9 @@ public class ShowAllDirectoriesAndSubdirectories implements Command
     }
 
     @Override
-    public void execute()
+    public void execute(Object param)
     {
-        if (shell.getDirectory().equals(""))
-        {
-            showAllDirectoriesAndSubdirectories(shell.getHomeDirectory(), 0);
-        }
-        else
-        {
-            showAllDirectoriesAndSubdirectories(shell.getDirectory(), 0);
-        }
+        showAllDirectoriesAndSubdirectories(shell.getDirectory(), 0);
     }
 
     /**

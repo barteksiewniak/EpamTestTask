@@ -1,8 +1,6 @@
 package shell;
 
-import shell.commands.ChangeDirectoryLevelUp;
-import shell.commands.ShowAllDirectoriesAndSubdirectories;
-import shell.commands.ShowFilesAndDirectories;
+import shell.commands.*;
 
 import java.util.HashMap;
 
@@ -11,10 +9,11 @@ final class CommandFactory
     private final HashMap<String, Command> commands;
     private Shell shell;
 
-    public CommandFactory(Shell shell)
+    CommandFactory(Shell shell)
     {
         this.shell = shell;
         commands = new HashMap<>();
+        fillCommands();
     }
 
     private void addCommand(String name, Command command)
@@ -22,37 +21,23 @@ final class CommandFactory
         commands.put(name, command);
     }
 
-    void executeCommand(String name)
+    boolean executeCommand(String name, Object param)
     {
         if (commands.containsKey(name))
         {
-            commands.get(name).execute();
+            commands.get(name).execute(param);
+            return true;
         }
+        return false;
     }
 
-    // factory pattern
-    void init()
+    private void fillCommands()
     {
-        String input = shell.getUserInput();
-
-        switch (input)
-        {
-            case "dir":
-                addCommand("dir", new ShowFilesAndDirectories(shell));
-                break;
-            case "cd..":
-                addCommand("cd..", new ChangeDirectoryLevelUp(shell));
-                break;
-            case "exit":
-                System.out.println("Bye!");
-                shell.setIsRunning(false);
-                break;
-            case "tree":
-                addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
-                break;
-            default:
-                System.out.println("Wrong command.");
-                break;
-        }
+        addCommand("dir", new ShowFilesAndDirectories(shell));
+        addCommand("cd..", new ChangeDirectoryLevelUp(shell));
+        addCommand("exit", new Exit(shell));
+        addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
+        addCommand("prompt", new Prompt(shell));
     }
 }
+
