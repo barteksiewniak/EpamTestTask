@@ -22,7 +22,7 @@ public class ChangeDirectoryLevelUp implements Command
     {
         String temporaryDirectory;
 
-        if (shell.getDirectory().equals(""))
+        if (shell.getDirectory().equals(shell.getHomeDirectory()))
         {
             temporaryDirectory = shell.getHomeDirectory();
         }

@@ -25,7 +25,7 @@ public class ShowFilesAndDirectories implements Command
     {
         String directoryPlaceholder;
 
-        if (shell.getDirectory().equals(""))
+        if (shell.getDirectory().equals(shell.getHomeDirectory()))
         {
             directoryPlaceholder = shell.getHomeDirectory();
         }
