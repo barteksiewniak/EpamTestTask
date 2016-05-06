@@ -38,6 +38,7 @@ final class CommandFactory
         addCommand("exit", new Exit(shell));
         addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
         addCommand("prompt", new Prompt(shell));
+        addCommand("cd", new ChangeDirectoryWithParameter(shell));
     }
 }
 
