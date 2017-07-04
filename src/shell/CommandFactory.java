@@ -40,6 +40,7 @@ final class CommandFactory
         addCommand("prompt", new Prompt(shell));
         addCommand("cd", new ChangeDirectoryWithParameter(shell));
         addCommand("help", new Help(shell));
+        addCommand("date", new ShowDate(shell));
     }
 }
 
