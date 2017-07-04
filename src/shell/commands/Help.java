@@ -6,18 +6,16 @@ import shell.Shell;
 /**
  * Created by BSiewni on 7/4/2017.
  */
-public class Help implements Command{
+public class Help implements Command {
 
     private Shell shell;
 
-    public Help(Shell shell)
-    {
+    public Help(Shell shell) {
         this.shell = shell;
     }
 
     @Override
-    public void execute(Object param)
-    {
+    public void execute(Object param) {
         System.out.println("List of available commends:");
         System.out.println();
         System.out.println("help    --- you are already here");

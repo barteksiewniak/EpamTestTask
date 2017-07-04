@@ -1,7 +1,6 @@
 package shell;
 
 @FunctionalInterface
-public interface Command
-{
+public interface Command {
     void execute(Object param);
 }

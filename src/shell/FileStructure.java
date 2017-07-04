@@ -5,7 +5,6 @@ package shell;
  *
  * @author Bartosz Siewniak
  */
-public enum FileStructure
-{
+public enum FileStructure {
     DIR, FILE
 }

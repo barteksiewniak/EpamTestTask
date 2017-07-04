@@ -8,12 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class ShowFilesAndDirectories implements Command
-{
+public class ShowFilesAndDirectories implements Command {
     private Shell shell;
 
-    public ShowFilesAndDirectories(Shell shell)
-    {
+    public ShowFilesAndDirectories(Shell shell) {
         this.shell = shell;
     }
 
@@ -21,51 +19,36 @@ public class ShowFilesAndDirectories implements Command
      * Method responsible for showing up all files and directories in our current working folder
      */
     @Override
-    public void execute(Object param)
-    {
+    public void execute(Object param) {
         String directoryPlaceholder;
 
-        if (shell.getDirectory().equals(shell.getHomeDirectory()))
-        {
+        if (shell.getDirectory().equals(shell.getHomeDirectory())) {
             directoryPlaceholder = shell.getHomeDirectory();
-        }
-        else
-        {
+        } else {
             directoryPlaceholder = shell.getDirectory();
         }
 
         File currentDirectory = new File(directoryPlaceholder);
         File[] listOfFilesAndFolders = currentDirectory.listFiles();
 
-        try
-        {
+        try {
             System.out.println("Content of " + currentDirectory.getCanonicalFile());
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try
-        {
-            if (listOfFilesAndFolders != null)
-            {
-                for (File element : listOfFilesAndFolders)
-                {
-                    if (element.isDirectory())
-                    {
+        try {
+            if (listOfFilesAndFolders != null) {
+                for (File element : listOfFilesAndFolders) {
+                    if (element.isDirectory()) {
                         System.out.print(FileStructure.DIR + "     ");
-                    }
-                    else
-                    {
+                    } else {
                         System.out.print(FileStructure.FILE + "    ");
                     }
                     System.out.println(element.getCanonicalFile());
                 }
             }
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

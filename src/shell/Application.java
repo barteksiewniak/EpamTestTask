@@ -6,10 +6,8 @@ package shell;
  *
  * @author Bartosz Siewniak
  */
-public class Application
-{
-    public static void main(String[] args)
-    {
+public class Application {
+    public static void main(String[] args) {
         Shell shell = new Shell();
         shell.run();
     }

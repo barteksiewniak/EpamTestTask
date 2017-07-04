@@ -23,8 +23,7 @@ public class ShowDate implements Command {
         String strParam = (String) param;
 
         try {
-            switch (strParam)
-            {
+            switch (strParam) {
                 case "%c":
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
