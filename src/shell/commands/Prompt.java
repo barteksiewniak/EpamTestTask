@@ -45,7 +45,7 @@ public class Prompt implements Command
                     break;
             }
         }
-        catch (ArrayIndexOutOfBoundsException e)
+        catch (NullPointerException e)
         {
             System.out.println("Use prompt with correct parameter.\n " +
                     "prompt [name] - for change default\n " +
