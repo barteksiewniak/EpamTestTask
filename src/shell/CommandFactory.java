@@ -18,9 +18,17 @@ final class CommandFactory {
         commands.put(name, command);
     }
 
-    boolean executeCommand(String name, Object param) {
+    boolean executeCommandWithOneParameter(String name, Object param) {
         if (commands.containsKey(name)) {
-            commands.get(name).execute(param);
+            commands.get(name).executeWithOneParameter(param);
+            return true;
+        }
+        return false;
+    }
+
+    boolean executeCommandWithTwoParameters(String name, Object param, Object param2) {
+        if (commands.containsKey(name)) {
+            commands.get(name).executeWithTwoParameters(param, param2);
             return true;
         }
         return false;
@@ -35,6 +43,7 @@ final class CommandFactory {
         addCommand("cd", new ChangeDirectoryWithParameter(shell));
         addCommand("help", new Help(shell));
         addCommand("date", new ShowDate(shell));
+        addCommand("cp", new Copy(shell));
     }
 }
 

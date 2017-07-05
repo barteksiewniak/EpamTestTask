@@ -15,7 +15,7 @@ public class ShowAllDirectoriesAndSubdirectories implements Command {
     }
 
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
         showAllDirectoriesAndSubdirectories(shell.getDirectory(), 0);
     }
 

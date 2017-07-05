@@ -17,7 +17,7 @@ public class Prompt implements Command {
      *              and split it by spaces and cast it on String type
      */
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
         String promptParameter = (String) param;
 
         try {

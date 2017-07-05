@@ -11,7 +11,7 @@ public class Exit implements Command {
     }
 
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
         System.out.println("Terminated!");
         shell.setIsRunning(false);
     }

@@ -17,7 +17,7 @@ public class ChangeDirectoryLevelUp implements Command {
      * Method responsible for change directory ( 1 level of depth up - we switching to parent )
      */
     @Override
-    public void execute(String[] params) {
+    public void executeWithOneParameter(Object param) {
         String temporaryDirectory;
 
         if (shell.getDirectory().equals(shell.getHomeDirectory())) {

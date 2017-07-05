@@ -18,7 +18,7 @@ public class ShowDate implements Command {
     }
 
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
 
         String strParam = (String) param;
 

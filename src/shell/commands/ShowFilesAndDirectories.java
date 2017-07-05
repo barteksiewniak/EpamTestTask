@@ -19,7 +19,7 @@ public class ShowFilesAndDirectories implements Command {
      * Method responsible for showing up all files and directories in our current working folder
      */
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
         String directoryPlaceholder;
 
         if (shell.getDirectory().equals(shell.getHomeDirectory())) {

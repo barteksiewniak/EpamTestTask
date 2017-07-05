@@ -14,7 +14,7 @@ public class ChangeDirectoryWithParameter implements Command {
     }
 
     @Override
-    public void execute(Object param) {
+    public void executeWithOneParameter(Object param) {
         String changeDirectoryParam = (String) param;
         shell.setDirectory(changeDirectoryParam);
         shell.setPrompt(changeDirectoryParam);

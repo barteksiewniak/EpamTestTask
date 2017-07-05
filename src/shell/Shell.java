@@ -56,10 +56,13 @@ public class Shell {
             String[] userInputHolder = userInput.split(" ");
             boolean isExecuted;
 
-            if (userInputHolder.length > 1) {
-                isExecuted = commandFactory.executeCommand(userInputHolder[0], userInputHolder[1]);
+            if (userInputHolder.length == 3) {
+                isExecuted = commandFactory.executeCommandWithTwoParameters(userInputHolder[0], userInputHolder[1],
+                        userInputHolder[2]);
+            } else if (userInputHolder.length == 2) {
+                isExecuted = commandFactory.executeCommandWithOneParameter(userInputHolder[0], userInputHolder[1]);
             } else {
-                isExecuted = commandFactory.executeCommand(userInputHolder[0], null);
+                isExecuted = commandFactory.executeCommandWithOneParameter(userInputHolder[0], null);
             }
 
             if (!isExecuted) {

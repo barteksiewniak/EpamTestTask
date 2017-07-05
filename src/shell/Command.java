@@ -1,6 +1,12 @@
 package shell;
 
-@FunctionalInterface
+
 public interface Command {
-    void execute(Object param);
+    default void executeWithOneParameter(Object param) {
+        System.out.println("Not implemented");
+    }
+
+    default void executeWithTwoParameters(Object param, Object param2) {
+        System.out.println("Not implemented");
+    }
 }
