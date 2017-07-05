@@ -18,26 +18,18 @@ final class CommandFactory {
         commands.put(name, command);
     }
 
-    boolean executeCommand(String name) {
+    boolean executeCommand(String name, Object param, Object param2) {
         if (commands.containsKey(name)) {
-            commands.get(name).executeWithoutParameters();
-            return true;
-        }
-        return false;
-    }
-
-    boolean executeCommandWithOneParameter(String name, Object param) {
-        if (commands.containsKey(name)) {
-            commands.get(name).executeWithOneParameter(param);
-            return true;
-        }
-        return false;
-    }
-
-    boolean executeCommandWithTwoParameters(String name, Object param, Object param2) {
-        if (commands.containsKey(name)) {
-            commands.get(name).executeWithTwoParameters(param, param2);
-            return true;
+            if (param2 == null & param == null) {
+                commands.get(name).executeWithoutParameters();
+                return true;
+            } else if (param2 == null & param != null) {
+                commands.get(name).executeWithOneParameter(param);
+                return true;
+            } else if (param != null) {
+                commands.get(name).executeWithTwoParameters(param, param2);
+                return true;
+            }
         }
         return false;
     }

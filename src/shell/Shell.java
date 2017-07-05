@@ -57,12 +57,12 @@ public class Shell {
             boolean isExecuted;
 
             if (userInputHolder.length == 3) {
-                isExecuted = commandFactory.executeCommandWithTwoParameters(userInputHolder[0], userInputHolder[1],
+                isExecuted = commandFactory.executeCommand(userInputHolder[0], userInputHolder[1],
                         userInputHolder[2]);
             } else if (userInputHolder.length == 2) {
-                isExecuted = commandFactory.executeCommandWithOneParameter(userInputHolder[0], userInputHolder[1]);
+                isExecuted = commandFactory.executeCommand(userInputHolder[0], userInputHolder[1], null);
             } else {
-                isExecuted = commandFactory.executeCommand(userInputHolder[0]);
+                isExecuted = commandFactory.executeCommand(userInputHolder[0], null, null);
             }
 
             if (!isExecuted) {

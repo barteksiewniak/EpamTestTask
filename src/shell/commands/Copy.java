@@ -42,6 +42,7 @@ public class Copy implements Command {
             if (fileExist(SOURCE)) {
                 if (directoryExist(DESTINATION)) {
                     Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("File copied successfully.");
                 } else {
                     System.out.println("Destination directory doesn't exist.");
                 }
