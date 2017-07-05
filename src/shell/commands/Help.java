@@ -15,7 +15,7 @@ public class Help implements Command {
     }
 
     @Override
-    public void execute() {
+    public void executeWithoutParameters() {
         System.out.println("List of available commands:");
         System.out.println("---------------------------------------------------------------------");
         System.out.println("help    --- you are already here");
@@ -26,6 +26,6 @@ public class Help implements Command {
         System.out.println("prompt  --- changing prompt, type prompt for more options");
         System.out.println("cd      --- change directory with parameter");
         System.out.println("date    --- show date, type date for more options");
-        System.out.println("cp      --- copy files");
+        System.out.println("cp      --- copy files, type cp for more options");
     }
 }

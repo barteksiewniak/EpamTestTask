@@ -20,7 +20,7 @@ final class CommandFactory {
 
     boolean executeCommand(String name) {
         if (commands.containsKey(name)) {
-            commands.get(name).execute();
+            commands.get(name).executeWithoutParameters();
             return true;
         }
         return false;
