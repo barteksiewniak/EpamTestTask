@@ -62,7 +62,7 @@ public class Shell {
             } else if (userInputHolder.length == 2) {
                 isExecuted = commandFactory.executeCommandWithOneParameter(userInputHolder[0], userInputHolder[1]);
             } else {
-                isExecuted = commandFactory.executeCommandWithOneParameter(userInputHolder[0], null);
+                isExecuted = commandFactory.executeCommand(userInputHolder[0]);
             }
 
             if (!isExecuted) {

@@ -18,6 +18,14 @@ final class CommandFactory {
         commands.put(name, command);
     }
 
+    boolean executeCommand(String name) {
+        if (commands.containsKey(name)) {
+            commands.get(name).execute();
+            return true;
+        }
+        return false;
+    }
+
     boolean executeCommandWithOneParameter(String name, Object param) {
         if (commands.containsKey(name)) {
             commands.get(name).executeWithOneParameter(param);

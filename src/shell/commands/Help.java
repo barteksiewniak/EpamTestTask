@@ -15,7 +15,7 @@ public class Help implements Command {
     }
 
     @Override
-    public void executeWithOneParameter(Object param) {
+    public void execute() {
         System.out.println("List of available commands:");
         System.out.println("---------------------------------------------------------------------");
         System.out.println("help    --- you are already here");
