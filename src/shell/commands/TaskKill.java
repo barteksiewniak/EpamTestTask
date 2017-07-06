@@ -10,6 +10,11 @@ import java.io.IOException;
 public class TaskKill implements Command {
 
     @Override
+    public void executeWithoutParameters() {
+        System.out.println("Type name of process you want to kill. taskkill [name]");
+    }
+
+    @Override
     public void executeWithOneParameter(Object param) {
         String strParam = (String) param;
 
