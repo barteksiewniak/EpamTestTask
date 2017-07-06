@@ -1,18 +1,11 @@
 package shell.commands;
 
 import shell.Command;
-import shell.Shell;
 
 /**
  * Created by BSiewni on 7/4/2017.
  */
 public class Help implements Command {
-
-    private Shell shell;
-
-    public Help(Shell shell) {
-        this.shell = shell;
-    }
 
     @Override
     public void executeWithoutParameters() {
@@ -27,5 +20,6 @@ public class Help implements Command {
         System.out.println("cd      --- change directory with parameter");
         System.out.println("date    --- show date, type date for more options");
         System.out.println("cp      --- copy files, type cp for more options");
+        System.out.println("ps      --- show all running processes");
     }
 }

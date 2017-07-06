@@ -2,6 +2,7 @@ package shell;
 
 
 public interface Command {
+    // maybe varargs could be better/more scalable solution ??
     default void executeWithoutParameters() {
         System.out.println("Not implemented execute without parameters.");
     }

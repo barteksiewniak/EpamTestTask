@@ -1,6 +1,7 @@
 package shell;
 
 import shell.commands.*;
+import shell.commands.Process;
 
 import java.util.HashMap;
 
@@ -41,9 +42,10 @@ final class CommandFactory {
         addCommand("tree", new ShowAllDirectoriesAndSubdirectories(shell));
         addCommand("prompt", new Prompt(shell));
         addCommand("cd", new ChangeDirectoryWithParameter(shell));
-        addCommand("help", new Help(shell));
-        addCommand("date", new ShowDate(shell));
-        addCommand("cp", new Copy(shell));
+        addCommand("help", new Help());
+        addCommand("date", new ShowDate());
+        addCommand("cp", new Copy());
+        addCommand("ps", new Process());
     }
 }
 

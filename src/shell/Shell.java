@@ -48,6 +48,9 @@ public class Shell {
     void run() {
         CommandFactory commandFactory = new CommandFactory(this);
         Scanner input = new Scanner(System.in);
+        System.out.println("Windows Shell-like [Version 0.1]");
+        System.out.println("Copyright (c) 2017 Bartosz Siewniak. All rights reserved.");
+        System.out.println("Type help for get all available commands.");
         while (isRunning) {
             final String MY_SHELL = "[My Shell]";
             System.out.print(MY_SHELL + " " + prompt + ">");

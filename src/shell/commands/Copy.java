@@ -14,12 +14,6 @@ import java.nio.file.StandardCopyOption;
  */
 public class Copy implements Command {
 
-    private Shell shell;
-
-    public Copy(Shell shell) {
-        this.shell = shell;
-    }
-
     @Override
     public void executeWithoutParameters() {
         System.out.println("Please enter path for source and destination files - cp [source] [destination]");

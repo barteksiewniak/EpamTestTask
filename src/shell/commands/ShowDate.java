@@ -1,7 +1,6 @@
 package shell.commands;
 
 import shell.Command;
-import shell.Shell;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +9,6 @@ import java.time.format.DateTimeFormatter;
  * Created by BSiewni on 7/4/2017.
  */
 public class ShowDate implements Command {
-
-    private Shell shell;
-
-    public ShowDate(Shell shell) {
-        this.shell = shell;
-    }
 
     @Override
     public void executeWithOneParameter(Object param) {
