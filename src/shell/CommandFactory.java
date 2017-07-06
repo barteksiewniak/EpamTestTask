@@ -46,6 +46,7 @@ final class CommandFactory {
         addCommand("date", new ShowDate());
         addCommand("cp", new Copy());
         addCommand("ps", new Process());
+        addCommand("taskkill", new TaskKill());
     }
 }
 
