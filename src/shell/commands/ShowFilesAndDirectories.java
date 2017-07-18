@@ -6,6 +6,12 @@ import shell.Shell;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class ShowFilesAndDirectories implements Command {
@@ -40,6 +46,13 @@ public class ShowFilesAndDirectories implements Command {
         try {
             if (listOfFilesAndFolders != null) {
                 for (File element : listOfFilesAndFolders) {
+                    BasicFileAttributes basicFileAttributes = Files.readAttributes(element.toPath(),
+                            BasicFileAttributes.class);
+                    Calendar time = Calendar.getInstance();
+                    time.setTimeInMillis(basicFileAttributes.lastAccessTime().toMillis());
+                    Date dateTime = time.getTime();
+                    System.out.print(dateTime + " ");
+
                     if (element.isDirectory()) {
                         System.out.print(FileStructure.DIR + "     ");
                     } else {

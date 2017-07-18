@@ -1,6 +1,5 @@
 package shell;
 
-
 public interface Command {
     // maybe varargs could be better/more scalable solution ??
     default void executeWithoutParameters() {
